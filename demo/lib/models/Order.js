@@ -27,4 +27,13 @@ static async find() {
     'SELECT * FROM orders')
     return rows.map(row => new Order(row));
 }
+
+static async selectById(id) {
+  const {
+    rows
+  } = await pool.query('SELECT * FROM orders WHERE id=$1',
+  [id])
+
+  return new Order(rows[0]);
+}
 };

@@ -19,6 +19,11 @@ module.exports = Router()
     const orders = await Order.find();
     res.send(orders);
   })
-  .get('/:id', async (req, res, next) => {})
+
+  .get('/:id', async (req, res, next) => {
+    const orders = await Order.find();
+    res.send(order);
+  })
+  // .get('/:id', async (req, res, next) => {})
   .put('/:id', async (req, res, next) => {})
   .delete('/:id', async (req, res, next) => {});

@@ -3,6 +3,8 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Order = require('../lib/models/Order');
+jest.mock('../lib/utils/twilio.js');
+const twilio = require('../lib/utils/twilio.js');
 
 
 jest.mock('twilio', () => () => ({
@@ -47,17 +49,6 @@ describe('03_separation-of-concerns-demo routes', () => {
   });
 
 
-// it('gets all the orders in our database', async () => {
-//     return request(app)
-//     .get('/api/v1/orders')
-//     .then((res) => {
-
-//       expect(res.body).toEqual([{
-//         id: '1',
-//         quantity: 10,
-//       }]);
-//     });
-// });
 
 it('ASYNC/AWAIT: retreives an order in our database', async () => {
   const res = await request(app)
@@ -68,4 +59,14 @@ it('ASYNC/AWAIT: retreives an order in our database', async () => {
         quantity: 10,
       });
     });
+    
+it('ASYNC/AWAIT: retrieves an order in our database by an ID', async () => {
+  const res = await request(app)
+  .get('/api/v1/orders/1')
+
+  expect(res.body).toEqual({
+    id: '1',
+    quantity: 10,
   });
+});
+});
