@@ -15,15 +15,39 @@ module.exports = Router()
       next(err);
     }
   })
+  
   .get('/', async (req, res, next) => {
+    try {
     const orders = await Order.find();
     res.send(orders);
+  } catch (err) {
+    next(err);
+  }
   })
 
   .get('/:id', async (req, res, next) => {
-    const orders = await Order.find();
+    try {
+    const order = await OrderService.findById(req.params.id);
     res.send(order);
+  } catch (err) {
+    next(err);
+  }
   })
-  // .get('/:id', async (req, res, next) => {})
-  .put('/:id', async (req, res, next) => {})
-  .delete('/:id', async (req, res, next) => {});
+
+  .put('/:id', async (req, res, next) => {
+    try {
+    const order = await OrderService.update(req.params.id, req.body);
+    res.send(order);
+  } catch (err) {
+    next(err);
+  }
+  })
+
+  .delete('/:id', async (req, res, next) => {
+    try {
+      const order = await OrderService.delete(req.params.id);
+      res.send(order);
+    } catch (err) {
+      next(err);
+    }
+  });
