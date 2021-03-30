@@ -55,10 +55,10 @@ it('ASYNC/AWAIT: retreives an order in our database', async () => {
   .get('/api/v1/orders')
 
 
-expect(res.body[0]).toEqual({
+expect(res.body).toEqual[({
   id: '1',
   quantity: 10,
-});
+})];
 });
     
 it('ASYNC/AWAIT: retrieves an order in our database by an ID', async () => {
